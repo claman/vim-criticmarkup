@@ -1,5 +1,5 @@
 function! criticmarkup#Init()
-    command! -buffer -nargs=1 -complete=custom,criticmarkup#CriticCompleteFunc 
+    command! -buffer -nargs=1 -complete=custom,criticmarkup#CriticCompleteFunc
                 \Critic call criticmarkup#Critic("<args>")
 endfunction
 
@@ -76,29 +76,29 @@ function! criticmarkup#Critic(args)
 endfunction
 
 function! criticmarkup#JumpNext(editorial)
-	if a:editorial == 1
-		exe "normal ".v:count1."/{[-+\\~]\\{2\\}\<CR>"
-	else
-		exe "normal ".v:count1."/{[-+\\~\>=]\\{2\\}\<CR>"
-	endif
+    if a:editorial == 1
+        exe "normal ".v:count1."/{[-+\\~]\\{2\\}\<CR>"
+    else
+        exe "normal ".v:count1."/{[-+\\~\>=]\\{2\\}\<CR>"
+    endif
 endfunction
 
 function! criticmarkup#JumpPrevious(editorial)
-	if a:editorial == 1
-		exe "normal ".v:count1."?{[-+\\~]\\{2\\}\<CR>"
-	else
-		exe "normal ".v:count1."?{[-+\\~\>=]\\{2\\}\<CR>"
-	endif
+    if a:editorial == 1
+        exe "normal ".v:count1."?{[-+\\~]\\{2\\}\<CR>"
+    else
+        exe "normal ".v:count1."?{[-+\\~\>=]\\{2\\}\<CR>"
+    endif
 endfunction
 
 function! criticmarkup#CriticNext()
-	call criticmarkup#JumpNext(1)
+    call criticmarkup#JumpNext(1)
     let op = input("What to do? ", "", "custom,criticmarkup#CriticCompleteFunc")
     if op =~ "accept"
         call criticmarkup#Accept()
     elseif op =~ "reject"
         call criticmarkup#Reject()
-    endif
+endif
 endfunction
 
 function! criticmarkup#CriticCompleteFunc(a, c, p)
