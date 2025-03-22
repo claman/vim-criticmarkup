@@ -1,3 +1,6 @@
+if exists('b:loaded_critic_vim') | finish | endif
+let b:loaded_critic_vim = 1
+
 augroup criticmarkup
     autocmd!
     autocmd Filetype pandoc,markdown,mkd,text,vimwiki call criticmarkup#Init()
@@ -13,3 +16,17 @@ augroup criticmarkup
         autocmd VimEnter * doautoa Syntax,Filetype
     endif
 augroup END
+
+nmap ]m :call criticmarkup#JumpNext(0)<CR>
+nmap [m :call criticmarkup#JumpPrevious(0)<CR>
+
+nnoremap <buffer> <localleader>ed :set operatorfunc=CMDelOperator<cr>g@
+vnoremap <buffer> <localleader>ed :<c-u>call CMOperator(visualmode(),'<','>','{--','--}')<cr>
+nnoremap <buffer> <localleader>ea :set operatorfunc=CMAddOperator<cr>g@
+vnoremap <buffer> <localleader>ea :<c-u>call CMOperator(visualmode(),'<','>','{++','++}')<cr>
+nnoremap <buffer> <localleader>eh :set operatorfunc=CMHilOperator<cr>g@
+vnoremap <buffer> <localleader>eh :<c-u>call CMOperator(visualmode(),'<','>','{==','==}')<cr>
+nnoremap <buffer> <localleader>ec :set operatorfunc=CMComOperator<cr>g@
+vnoremap <buffer> <localleader>ec :<c-u>call CMOperator(visualmode(),'<','>','{>>','<<}')<cr>
+nnoremap <buffer> <localleader>es :set operatorfunc=CMSubOperator<cr>g@
+vnoremap <buffer> <localleader>es :<c-u>call CMOperator(visualmode(),'<','>','{~~','~>~~}')<cr>
