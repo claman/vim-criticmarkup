@@ -1,7 +1,6 @@
 # vim-criticmarkup
 
-Adds [criticmarkup][] support to vim. Attaches to `pandoc`, `markdown`, `mkd`
-and `txt` filetypes.
+Adds [criticmarkup][] support to vim. Attaches to `pandoc`, `markdown`, `mkd`, `vimwiki`, and `txt` filetypes.
 
 [criticmarkup]: http://criticmarkup.com/
 
@@ -9,8 +8,7 @@ and `txt` filetypes.
 
 ## Basic syntax
 
-criticmarkup can be used to annotate additions, deletions, substitutions,
-highlights and comments in a text document.
+criticmarkup can be used to annotate additions, deletions, substitutions, highlights and comments in a text document.
 
 ### Additions
 
@@ -18,7 +16,7 @@ highlights and comments in a text document.
 
 ### Deletions
 
-    It is {--not --} uncommon for people to tell the truth.
+    It is {--not --}uncommon for people to tell the truth.
 
 ### Substitutions
 
@@ -34,9 +32,7 @@ highlights and comments in a text document.
 
 ## Handling annotations
 
-vim-criticmarkup creates a command, `:Critic`, that can accept, reject and
-delete annotations. To accept an edit, simply place the cursor inside the
-annotation and then execute
+vim-criticmarkup creates a command, `:Critic`, that can accept and reject annotations. To accept an edit, simply place the cursor inside the annotation and then execute
 
     :Critic accept
 
