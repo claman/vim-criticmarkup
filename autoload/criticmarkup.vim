@@ -77,6 +77,14 @@ function! criticmarkup#Critic(args)
     endif
 endfunction
 
+function! criticmarkup#CriticCompleteFunc(a, c, p)
+    if len(split(a:c, " ", 1)) < 3
+        return "accept\nreject"
+    else
+        return ""
+    endif
+endfunction
+
 function! criticmarkup#JumpNext(editorial)
     if a:editorial == 1
         exe "normal ".v:count1."/{[-+\\~]\\{2\\}\<CR>"
@@ -100,15 +108,24 @@ function! criticmarkup#CriticNext()
         call criticmarkup#Accept()
     elseif op =~ "reject"
         call criticmarkup#Reject()
-endif
+    endif
 endfunction
 
-function! criticmarkup#CriticCompleteFunc(a, c, p)
-    if len(split(a:c, " ", 1)) < 3
-        return "accept\nreject"
-    else
-        return ""
+function! CMOperator(type, m0, m1, t0, t1)
+    let pastem=&paste
+    set paste
+
+    if a:type ==# 'v' || a:type == 'char'
+        silent exe "normal! `" . a:m0 . "v`" . a:m1 . "d"
+        "silent exe "normal! i" . a:t0 . "\<esc>pa" . a:t1 . "\<esc>"
+        silent exe "normal! i" . a:t0 . "\<esc>a". a:t1 . "\<esc>g`[P"
+    elseif a:type ==# 'V' || a:type == 'line'
+        silent exe "normal! `" . a:m0 . "V`" . a:m1 . "d"
+        "silent exe "normal! O" . a:t0 . "\<esc>po" . a:t1 . "\<esc>"
+        silent exe "normal! O" . a:t0 . "\<cr>" . a:t1 . "\<esc>P"
     endif
+
+    let &paste=pastem
 endfunction
 
 function! CMDelOperator(type)
@@ -129,22 +146,5 @@ endfunction
 
 function! CMSubOperator(type)
     call CMOperator(a:type,'[',']','{~~','~>~~}')
-endfunction
-
-function! CMOperator(type, m0, m1, t0, t1)
-    let pastem=&paste
-    set paste
-
-    if a:type ==# 'v' || a:type == 'char'
-        silent exe "normal! `" . a:m0 . "v`" . a:m1 . "d"
-        "silent exe "normal! i" . a:t0 . "\<esc>pa" . a:t1 . "\<esc>"
-        silent exe "normal! i" . a:t0 . "\<esc>a". a:t1 . "\<esc>g`[P"
-    elseif a:type ==# 'V' || a:type == 'line'
-        silent exe "normal! `" . a:m0 . "V`" . a:m1 . "d"
-        "silent exe "normal! O" . a:t0 . "\<esc>po" . a:t1 . "\<esc>"
-        silent exe "normal! O" . a:t0 . "\<cr>" . a:t1 . "\<esc>P"
-    endif
-
-    let &paste=pastem
 endfunction
 
