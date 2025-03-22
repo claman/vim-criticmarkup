@@ -2,7 +2,7 @@ scriptencoding utf-8
 
 function! criticmarkup#Init()
     command! -buffer -nargs=1 -complete=custom,criticmarkup#CriticCompleteFunc
-                \Critic call criticmarkup#Critic("<args>")
+                \ Critic call criticmarkup#Critic("<args>")
 endfunction
 
 function! criticmarkup#InjectHighlighting()
